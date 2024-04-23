@@ -18,6 +18,15 @@ So, `guest:guest@localhost:5672` effectively tells the client software to log in
 ![alt text](docs/slowsubscribersimulation.jpg)
 By executing `cargo run` 4 times the total queue was 16 with the running time in total of 20 seconds. Of course because i executed the `cargo run` sequentially, the total queue wouldn't be accurate/the same as everyone else due to human and computer delay. However i've found that the    `subscriber` experiences a delay in receiving or processing data from the message queue, with a delay of more or less a second for each process.
 
+# Reflection and Running at least three subscribers
+![alt text](docs/running3subscribers.jpg)
+![alt text](docs/event-driven-RabbitMQ.jpg)
+
+By executing `cargo run` 4 times, same as previously, the total queue was 8 with the running timein total of more or less 10 seconds. This is because each `Subscriber` operates independently, like a separate application, thus they retrieve uniq data from the message queue sent by the publisher separately. Once a data is retrieved from the message queue by a subscriber, the message disappears and cannot be used by other applications.
+
+In my opinion, to improve the performance of the Subscriber application, a step that can be taken is to make it multithreaded so that it can process multiple events from the Publisher concurrently (at the same time :D!).
+
+
 
 
 
